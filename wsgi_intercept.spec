@@ -4,7 +4,7 @@
 #
 Name     : wsgi_intercept
 Version  : 0.10.3
-Release  : 8
+Release  : 9
 URL      : https://pypi.python.org/packages/source/w/wsgi_intercept/wsgi_intercept-0.10.3.tar.gz
 Source0  : https://pypi.python.org/packages/source/w/wsgi_intercept/wsgi_intercept-0.10.3.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
