@@ -4,7 +4,7 @@
 #
 Name     : wsgi_intercept
 Version  : 1.2.2
-Release  : 15
+Release  : 16
 URL      : https://pypi.python.org/packages/source/w/wsgi_intercept/wsgi_intercept-1.2.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/w/wsgi_intercept/wsgi_intercept-1.2.2.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
