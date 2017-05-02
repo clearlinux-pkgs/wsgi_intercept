@@ -4,7 +4,7 @@
 #
 Name     : wsgi_intercept
 Version  : 1.5.0
-Release  : 24
+Release  : 25
 URL      : http://pypi.debian.net/wsgi_intercept/wsgi_intercept-1.5.0.tar.gz
 Source0  : http://pypi.debian.net/wsgi_intercept/wsgi_intercept-1.5.0.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
