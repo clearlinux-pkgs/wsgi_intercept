@@ -4,7 +4,7 @@
 #
 Name     : wsgi_intercept
 Version  : 1.5.0
-Release  : 25
+Release  : 26
 URL      : http://pypi.debian.net/wsgi_intercept/wsgi_intercept-1.5.0.tar.gz
 Source0  : http://pypi.debian.net/wsgi_intercept/wsgi_intercept-1.5.0.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
@@ -24,9 +24,42 @@ BuildRequires : python3-dev
 BuildRequires : setuptools
 
 %description
-Installs a WSGI application in place of a real host for testing.
 Introduction
-============
+        ============
+        
+        Testing a WSGI application sometimes involves starting a server at a
+        local host and port, then pointing your test code to that address.
+        Instead, this library lets you intercept calls to any specific host/port
+        combination and redirect them into a `WSGI application`_ importable by
+        your test program. Thus, you can avoid spawning multiple processes or
+        threads to test your Web app.
+        
+        Supported Libaries
+        ==================
+        
+        ``wsgi_intercept`` works with a variety of HTTP clients in Python 2.7,
+        3.3 and beyond, and in pypy.
+        
+        * urllib2
+        * urllib.request
+        * httplib
+        * http.client
+        * httplib2
+        * requests
+        * urllib3
+        
+        How Does It Work?
+        =================
+        
+        ``wsgi_intercept`` works by replacing ``httplib.HTTPConnection`` with a
+        subclass, ``wsgi_intercept.WSGI_HTTPConnection``. This class then
+        redirects specific server/port combinations into a WSGI application by
+        emulating a socket. If no intercept is registered for the host and port
+        requested, those requests are passed on to the standard handler.
+        
+        The easiest way to use an intercept is to import an appropriate subclass
+        of ``~wsgi_intercept.interceptor.Interceptor`` and use that as a
+        context manager over web requests that use the library associated with
 
 %package python
 Summary: python components for the wsgi_intercept package.
@@ -40,20 +73,27 @@ python components for the wsgi_intercept package.
 %setup -q -n wsgi_intercept-1.5.0
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1489156186
+export SOURCE_DATE_EPOCH=1503083510
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1489156186
+export SOURCE_DATE_EPOCH=1503083510
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
+/usr/lib/python3*/*
