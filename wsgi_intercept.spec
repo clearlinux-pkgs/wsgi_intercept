@@ -4,21 +4,16 @@
 #
 Name     : wsgi_intercept
 Version  : 1.8.0
-Release  : 28
+Release  : 29
 URL      : https://files.pythonhosted.org/packages/70/5c/9428532ec1b74a0e0e412495bf52ac2333b49785e83f1d6d1b93690d34a4/wsgi_intercept-1.8.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/70/5c/9428532ec1b74a0e0e412495bf52ac2333b49785e83f1d6d1b93690d34a4/wsgi_intercept-1.8.0.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
 Group    : Development/Tools
 License  : MIT
-Requires: wsgi_intercept-python3
-Requires: wsgi_intercept-license
-Requires: wsgi_intercept-python
-Requires: Sphinx
-Requires: httplib2
-Requires: pytest
-Requires: requests
+Requires: wsgi_intercept-license = %{version}-%{release}
+Requires: wsgi_intercept-python = %{version}-%{release}
+Requires: wsgi_intercept-python3 = %{version}-%{release}
 Requires: six
-Requires: urllib3
 BuildRequires : buildreq-distutils3
 
 %description
@@ -70,7 +65,7 @@ license components for the wsgi_intercept package.
 %package python
 Summary: python components for the wsgi_intercept package.
 Group: Default
-Requires: wsgi_intercept-python3
+Requires: wsgi_intercept-python3 = %{version}-%{release}
 
 %description python
 python components for the wsgi_intercept package.
@@ -93,14 +88,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536585537
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1541280818
+python3 setup.py build
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/wsgi_intercept
-cp LICENSE %{buildroot}/usr/share/doc/wsgi_intercept/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/wsgi_intercept
+cp LICENSE %{buildroot}/usr/share/package-licenses/wsgi_intercept/LICENSE
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -109,8 +104,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/wsgi_intercept/LICENSE
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/wsgi_intercept/LICENSE
 
 %files python
 %defattr(-,root,root,-)
