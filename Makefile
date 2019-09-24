@@ -1,5 +1,5 @@
 PKG_NAME := wsgi_intercept
-URL = https://files.pythonhosted.org/packages/70/5c/9428532ec1b74a0e0e412495bf52ac2333b49785e83f1d6d1b93690d34a4/wsgi_intercept-1.8.0.tar.gz
+URL = https://files.pythonhosted.org/packages/6d/63/1f35358ce22754fb027d0fec5dd34fc2011c11d127ec98d68933fefb08a0/wsgi_intercept-1.8.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
