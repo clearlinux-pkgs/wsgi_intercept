@@ -4,7 +4,7 @@
 #
 Name     : wsgi_intercept
 Version  : 1.8.1
-Release  : 33
+Release  : 34
 URL      : https://files.pythonhosted.org/packages/6d/63/1f35358ce22754fb027d0fec5dd34fc2011c11d127ec98d68933fefb08a0/wsgi_intercept-1.8.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/63/1f35358ce22754fb027d0fec5dd34fc2011c11d127ec98d68933fefb08a0/wsgi_intercept-1.8.1.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
