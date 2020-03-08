@@ -4,7 +4,7 @@
 #
 Name     : wsgi_intercept
 Version  : 1.8.1
-Release  : 36
+Release  : 37
 URL      : https://files.pythonhosted.org/packages/6d/63/1f35358ce22754fb027d0fec5dd34fc2011c11d127ec98d68933fefb08a0/wsgi_intercept-1.8.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/6d/63/1f35358ce22754fb027d0fec5dd34fc2011c11d127ec98d68933fefb08a0/wsgi_intercept-1.8.1.tar.gz
 Summary  : wsgi_intercept installs a WSGI application in place of a real URI for testing.
@@ -18,9 +18,42 @@ BuildRequires : buildreq-distutils3
 BuildRequires : six
 
 %description
-Installs a WSGI application in place of a real host for testing.
 Introduction
-============
+        ============
+        
+        Testing a WSGI application sometimes involves starting a server at a
+        local host and port, then pointing your test code to that address.
+        Instead, this library lets you intercept calls to any specific host/port
+        combination and redirect them into a `WSGI application`_ importable by
+        your test program. Thus, you can avoid spawning multiple processes or
+        threads to test your Web app.
+        
+        Supported Libaries
+        ==================
+        
+        ``wsgi_intercept`` works with a variety of HTTP clients in Python 2.7,
+        3.4 and beyond, and in pypy.
+        
+        * urllib2
+        * urllib.request
+        * httplib
+        * http.client
+        * httplib2
+        * requests
+        * urllib3
+        
+        How Does It Work?
+        =================
+        
+        ``wsgi_intercept`` works by replacing ``httplib.HTTPConnection`` with a
+        subclass, ``wsgi_intercept.WSGI_HTTPConnection``. This class then
+        redirects specific server/port combinations into a WSGI application by
+        emulating a socket. If no intercept is registered for the host and port
+        requested, those requests are passed on to the standard handler.
+        
+        The easiest way to use an intercept is to import an appropriate subclass
+        of ``~wsgi_intercept.interceptor.Interceptor`` and use that as a
+        context manager over web requests that use the library associated with
 
 %package license
 Summary: license components for the wsgi_intercept package.
@@ -43,7 +76,8 @@ python components for the wsgi_intercept package.
 Summary: python3 components for the wsgi_intercept package.
 Group: Default
 Requires: python3-core
-Provides: pypi(wsgi-intercept)
+Provides: pypi(wsgi_intercept)
+Requires: pypi(six)
 
 %description python3
 python3 components for the wsgi_intercept package.
@@ -58,8 +92,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582902245
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1583698694
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
